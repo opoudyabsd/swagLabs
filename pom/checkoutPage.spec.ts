@@ -24,6 +24,7 @@ export class CheckoutPage {
     readonly completeHeaderMessage: string
     readonly approvalCheckImg: Locator
     readonly backHomeButton: Locator
+    readonly errorMessageLocator: Locator
     constructor(page: Page) {
         this.page = page
         this.sauceLabsBackpack = page.getByRole('link', { name: 'Sauce Labs Backpack' }).first()
@@ -47,11 +48,17 @@ export class CheckoutPage {
         this.completeHeaderMessage = 'Thank you for your order!'
         this.approvalCheckImg = page.locator('[data-test="pony-express"]')
         this.backHomeButton = page.locator('#back-to-products')
+        this.errorMessageLocator = page.locator('[data-test="error"]')
 
     }
     async fillCheckoutInformation() {
         await this.firstName.fill(faker.person.firstName())
         await this.lastName.fill(faker.person.lastName())
         await this.postalCode.fill(faker.location.zipCode())
+    }
+    async fillWithEmptySpaces() {
+        await this.firstName.fill("      ")
+        await this.lastName.fill("      ")
+        await this.postalCode.fill("     ")
     }
 }

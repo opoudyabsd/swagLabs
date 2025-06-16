@@ -51,4 +51,65 @@ test.describe("Checkout functionality", () => {
             await expect(checkoutPage.backHomeButton).toBeEnabled()
         })
     })
+    test("Negative testing -> Buy a product without enter a data into checkout information", async ({ page }) => {
+        const checkoutPage = new CheckoutPage(page)
+        await test.step("Open 'Sauce Labs Backpack' page", async () => {
+            await checkoutPage.sauceLabsBackpack.click()
+            await expect(page).toHaveURL(checkoutPage.sauceLabsBackpackUrl)
+        })
+        await test.step("Add 'Sauce Labs Backpack' to the cart", async () => {
+            await checkoutPage.addToCartButton.click()
+            await expect(checkoutPage.shoppingCartBadge).toHaveText('1')
+        })
+        await test.step('Click on the cart icon', async () => {
+            await checkoutPage.shoppingCartLink.click()
+            await expect(checkoutPage.title).toHaveText('Your Cart')
+            await expect(page).toHaveURL(checkoutPage.cartPageUrl)
+        })
+        await test.step('Verify that the “Sauce Labs Backpack” is listed with a quantity of 1', async () => {
+            await expect(checkoutPage.itemQuantity.first()).toHaveText("1")
+        })
+        await test.step('Click on “Checkout” button', async () => {
+            await checkoutPage.checkoutButton.click()
+        })
+        await test.step('Click on the "Continue" button', async () => {
+            await checkoutPage.continueButton.click()
+        })
+        await test.step("Verify that error message is displayed", async () => {
+            await expect(checkoutPage.errorMessageLocator).toBeVisible()
+            await expect(checkoutPage.errorMessageLocator).toHaveText("Error: First Name is required")
+        })
+    })
+    test.skip("Negative testing -> Buy a product with enter empty spaces into checkout information", async ({ page }) => {
+        const checkoutPage = new CheckoutPage(page)
+        await test.step("Open 'Sauce Labs Backpack' page", async () => {
+            await checkoutPage.sauceLabsBackpack.click()
+            await expect(page).toHaveURL(checkoutPage.sauceLabsBackpackUrl)
+        })
+        await test.step("Add 'Sauce Labs Backpack' to the cart", async () => {
+            await checkoutPage.addToCartButton.click()
+            await expect(checkoutPage.shoppingCartBadge).toHaveText('1')
+        })
+        await test.step('Click on the cart icon', async () => {
+            await checkoutPage.shoppingCartLink.click()
+            await expect(checkoutPage.title).toHaveText('Your Cart')
+            await expect(page).toHaveURL(checkoutPage.cartPageUrl)
+        })
+        await test.step('Verify that the “Sauce Labs Backpack” is listed with a quantity of 1', async () => {
+            await expect(checkoutPage.itemQuantity.first()).toHaveText("1")
+        })
+        await test.step('Click on “Checkout” button', async () => {
+            await checkoutPage.checkoutButton.click()
+        })
+        await test.step("Enter a valid first name, last name and postcode", async () => {
+            await checkoutPage.fillWithEmptySpaces()
+        })
+        await test.step('Click on the "Continue" button', async () => {
+            await checkoutPage.continueButton.click()
+        })
+        await test.step("Verify that error message is displayed", async () => {
+            await expect(checkoutPage.errorMessageLocator).toBeVisible()
+            await expect(checkoutPage.errorMessageLocator).toHaveText("Error: First Name is required")
+        })
+    })
 })
