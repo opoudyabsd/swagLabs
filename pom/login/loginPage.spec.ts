@@ -6,6 +6,7 @@ export class LoginPage {
     readonly loginButton: Locator;
     readonly productsHeader: Locator;
     readonly errorLocator: Locator;
+    readonly loginSection: Locator;
 
     constructor(page: Page) {
         this.page = page;
@@ -14,6 +15,7 @@ export class LoginPage {
         this.loginButton = page.getByRole('button', { name: /Login/i })
         this.productsHeader = page.locator('[data-test="title"]')
         this.errorLocator = page.locator('[data-test="error"]')
+        this.loginSection = page.locator('.login_wrapper-inner')
     }
     async goto() {
         await this.page.goto("/")

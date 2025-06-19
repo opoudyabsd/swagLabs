@@ -1,6 +1,5 @@
 import { test, expect } from '@playwright/test';
-import { LoginPage } from '/Users/HP 740 G2/Desktop/Work/SwagLab/pom/loginPage.spec';
-
+import { LoginPage } from '../pom/login/loginPage.spec';
 
 
 test.describe('Login functionality', () => {

@@ -14,9 +14,16 @@ export class ProductPage {
     readonly inventoryItem: Locator
     readonly bikeLight: Locator
     readonly bikeLightAddToCart: Locator
+    readonly sightBarMenuButton: Locator
+    readonly sightBarMenu: Locator
+    readonly sightBarMenuLogoutButton: Locator
     constructor(page: Page) {
         this.page = page
         this.title = page.locator('[data-test="title"]')
+
+        this.sightBarMenuButton = page.locator("#react-burger-menu-btn")
+        this.sightBarMenu = page.locator('.bm-menu')
+        this.sightBarMenuLogoutButton = page.locator('#logout_sidebar_link')
 
         this.bikeLight = page.getByRole('link', { name: 'Sauce Labs Bike Light' }).first()
         this.bikeLightAddToCart = page.locator("#add-to-cart-sauce-labs-bike-light")
