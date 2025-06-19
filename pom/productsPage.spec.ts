@@ -10,16 +10,29 @@ export class ProductPage {
     readonly sortingMenu: Locator
     readonly inventoryItemPrice: Locator
     readonly inventoryItemName: Locator
+    readonly title: Locator
+    readonly inventoryItem: Locator
+    readonly bikeLight: Locator
+    readonly bikeLightAddToCart: Locator
     constructor(page: Page) {
         this.page = page
+        this.title = page.locator('[data-test="title"]')
+
+        this.bikeLight = page.getByRole('link', { name: 'Sauce Labs Bike Light' }).first()
+        this.bikeLightAddToCart = page.locator("#add-to-cart-sauce-labs-bike-light")
+
         this.sauceLabsBackpack = page.getByRole('link', { name: 'Sauce Labs Backpack' }).first()
         this.sauceLabsBackpackUrl = 'https://www.saucedemo.com/inventory-item.html?id=4'
+
         this.addToCartButton = page.locator('[data-test="add-to-cart"]')
         this.shoppingCartBadge = page.locator('[data-test="shopping-cart-badge"]')
         this.shoppingCartLink = page.locator('[data-test="shopping-cart-link"]')
+
         this.sortingMenu = page.locator('[data-test="product-sort-container"]')
+
         this.inventoryItemPrice = page.locator('[data-test="inventory-item-price"]')
         this.inventoryItemName = page.locator('[data-test="inventory-item-name"]')
+        this.inventoryItem = page.locator('[data-test="inventory-item"]')
     }
     async replaceFunction(item) {
         return item.map(text => {

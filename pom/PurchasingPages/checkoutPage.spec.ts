@@ -8,14 +8,21 @@ export class CheckoutPage {
     readonly postalCode: Locator
     readonly continueButton: Locator
     readonly errorMessageLocator: Locator
+    readonly title: Locator
     constructor(page: Page) {
         this.page = page
+        this.title = page.locator('[data-test="title"]')
         this.firstName = page.locator('#first-name')
         this.lastName = page.locator('#last-name')
         this.postalCode = page.locator('#postal-code')
         this.continueButton = page.locator('#continue')
         this.errorMessageLocator = page.locator('[data-test="error"]')
 
+    }
+    async fillCheckoutInformationManual(firstname, lastname, zipcode) {
+        await this.firstName.fill(firstname)
+        await this.lastName.fill(lastname)
+        await this.postalCode.fill(zipcode)
     }
     async fillCheckoutInformation() {
         await this.firstName.fill(faker.person.firstName())
