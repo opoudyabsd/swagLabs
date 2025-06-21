@@ -8,7 +8,6 @@ export class CheckoutCompletePage {
     readonly backHomeButton: Locator
     constructor(page: Page) {
         this.page = page
-
         this.completeHeader = page.locator('[data-test="complete-header"]')
         this.completeHeaderMessage = 'Thank you for your order!'
         this.approvalCheckImg = page.locator('[data-test="pony-express"]')

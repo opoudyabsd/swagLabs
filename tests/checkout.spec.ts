@@ -5,6 +5,7 @@ import { CheckoutCompletePage } from "../pom/PurchasingPages/checkoutCompletePag
 import { CheckoutPage2 } from "../pom/PurchasingPages/checkoutPage2.spec"
 import { CartPage } from "../pom/PurchasingPages/cartPage.spec"
 import { ProductPage } from "../pom/productsPage.spec"
+import { HeaderComponent } from '../pom/headers/headersComponent.spec';
 test.describe("Checkout functionality", () => {
     test.beforeEach(async ({ page }) => {
         await loginToLab(page)
@@ -15,17 +16,18 @@ test.describe("Checkout functionality", () => {
         const checkoutPage = new CheckoutPage(page)
         const checkoutPage2 = new CheckoutPage2(page)
         const checkoutCompletePage = new CheckoutCompletePage(page)
+        const headerComponent = new HeaderComponent(page)
         await test.step("Open 'Sauce Labs Backpack' page", async () => {
             await productsPage.sauceLabsBackpack.click()
             await expect(page).toHaveURL(productsPage.sauceLabsBackpackUrl)
         })
         await test.step("Add 'Sauce Labs Backpack' to the cart", async () => {
             await productsPage.addToCartButton.click()
-            await expect(productsPage.shoppingCartBadge).toHaveText('1')
+            await expect(headerComponent.shoppingCartBadge).toHaveText('1')
         })
         await test.step('Click on the cart icon', async () => {
-            await productsPage.shoppingCartLink.click()
-            await expect(cartPage.title).toHaveText('Your Cart')
+            await headerComponent.shoppingCartLink.click()
+            await expect(headerComponent.title).toHaveText('Your Cart')
             await expect(page).toHaveURL(cartPage.cartPageUrl)
         })
         await test.step('Verify that the “Sauce Labs Backpack” is listed with a quantity of 1', async () => {
@@ -62,19 +64,19 @@ test.describe("Checkout functionality", () => {
         const productsPage = new ProductPage(page)
         const cartPage = new CartPage(page)
         const checkoutPage = new CheckoutPage(page)
-        const checkoutPage2 = new CheckoutPage2(page)
-        const checkoutCompletePage = new CheckoutCompletePage(page);
+        const headerComponent = new HeaderComponent(page)
+
         await test.step("Open 'Sauce Labs Backpack' page", async () => {
             await productsPage.sauceLabsBackpack.click()
             await expect(page).toHaveURL(productsPage.sauceLabsBackpackUrl)
         })
         await test.step("Add 'Sauce Labs Backpack' to the cart", async () => {
             await productsPage.addToCartButton.click()
-            await expect(productsPage.shoppingCartBadge).toHaveText('1')
+            await expect(headerComponent.shoppingCartBadge).toHaveText('1')
         })
         await test.step('Click on the cart icon', async () => {
-            await productsPage.shoppingCartLink.click()
-            await expect(cartPage.title).toHaveText('Your Cart')
+            await headerComponent.shoppingCartLink.click()
+            await expect(headerComponent.title).toHaveText('Your Cart')
             await expect(page).toHaveURL(cartPage.cartPageUrl)
         })
         await test.step('Verify that the “Sauce Labs Backpack” is listed with a quantity of 1', async () => {
@@ -95,19 +97,19 @@ test.describe("Checkout functionality", () => {
         const productsPage = new ProductPage(page)
         const cartPage = new CartPage(page)
         const checkoutPage = new CheckoutPage(page)
-        const checkoutPage2 = new CheckoutPage2(page)
-        const checkoutCompletePage = new CheckoutCompletePage(page)
+        const headerComponent = new HeaderComponent(page)
+
         await test.step("Open 'Sauce Labs Backpack' page", async () => {
             await productsPage.sauceLabsBackpack.click()
             await expect(page).toHaveURL(productsPage.sauceLabsBackpackUrl)
         })
         await test.step("Add 'Sauce Labs Backpack' to the cart", async () => {
             await productsPage.addToCartButton.click()
-            await expect(productsPage.shoppingCartBadge).toHaveText('1')
+            await expect(headerComponent.shoppingCartBadge).toHaveText('1')
         })
         await test.step('Click on the cart icon', async () => {
-            await productsPage.shoppingCartLink.click()
-            await expect(cartPage.title).toHaveText('Your Cart')
+            await headerComponent.shoppingCartLink.click()
+            await expect(headerComponent.title).toHaveText('Your Cart')
             await expect(page).toHaveURL(cartPage.cartPageUrl)
         })
         await test.step('Verify that the “Sauce Labs Backpack” is listed with a quantity of 1', async () => {
@@ -128,18 +130,19 @@ test.describe("Checkout functionality", () => {
         })
     })
     test.skip("Negative testing -> Verify the behavior of checkout functionality without adding any item to the cart", async ({ page }) => {
-        const productsPage = new ProductPage(page)
         const cartPage = new CartPage(page)
+        const headerComponent = new HeaderComponent(page)
+
         await test.step("Navigate user to the product page", async () => {
             await expect(page).toHaveURL('https://www.saucedemo.com/inventory.html')
-            await expect(productsPage.title).toHaveText("Products")
+            await expect(headerComponent.title).toHaveText("Products")
         })
         await test.step('Click on cart icon at the top of the right corner', async () => {
-            await productsPage.shoppingCartLink.click()
+            await headerComponent.shoppingCartLink.click()
         })
         await test.step('Verify that user is redirected to the cart page', async () => {
             await expect(page).toHaveURL('https://www.saucedemo.com/cart.html')
-            await expect(cartPage.title).toHaveText("Your Cart")
+            await expect(headerComponent.title).toHaveText("Your Cart")
         })
         await test.step('Verify that product section at the cart page is empty', async () => {
             await expect(cartPage.inventoryItem).not.toBeVisible()
@@ -165,23 +168,25 @@ test.describe("Checkout functionality", () => {
             const checkoutPage = new CheckoutPage(page)
             const checkoutPage2 = new CheckoutPage2(page)
             const checkoutCompletePage = new CheckoutCompletePage(page)
+            const headerComponent = new HeaderComponent(page)
+
             await test.step("User navigates to the products item page", async () => {
                 await expect(page).toHaveURL('https://www.saucedemo.com/inventory.html')
-                await expect(productsPage.title).toHaveText("Products")
+                await expect(headerComponent.title).toHaveText("Products")
             })
             await test.step("Click on the “Add to cart” button for random product | Sauce Labs Bike Light", async () => {
                 await productsPage.bikeLightAddToCart.click()
 
             })
             await test.step('Verify that cart icon value at the right top corner increased by 1', async () => {
-                await expect(productsPage.shoppingCartBadge).toHaveText('1')
+                await expect(headerComponent.shoppingCartBadge).toHaveText('1')
             })
             await test.step('Click on the cart icon value at the right top corner', async () => {
-                await productsPage.shoppingCartLink.click()
+                await headerComponent.shoppingCartLink.click()
 
             })
             await test.step('Verify that user is redirected to the cart page', async () => {
-                await expect(cartPage.title).toHaveText('Your Cart')
+                await expect(headerComponent.title).toHaveText('Your Cart')
                 await expect(page).toHaveURL(cartPage.cartPageUrl)
             })
             await test.step('Verify that pre-selected product is displayed at the cart page', async () => {
@@ -193,7 +198,7 @@ test.describe("Checkout functionality", () => {
             })
             await test.step('Verify that user is redirected to the “Checkout: Your Information” page', async () => {
                 await expect(page).toHaveURL('https://www.saucedemo.com/checkout-step-one.html')
-                await expect(checkoutPage.title).toHaveText('Checkout: Your Information')
+                await expect(headerComponent.title).toHaveText('Checkout: Your Information')
             })
             await test.step("Enter a valid first name, last name and postcode", async () => {
                 await checkoutPage.fillCheckoutInformationManual(firstName, lastName, zipcode)
@@ -203,7 +208,7 @@ test.describe("Checkout functionality", () => {
             })
             await test.step('Verify that user is redirected to the “Checkout: Overview” page', async () => {
                 await expect(page).toHaveURL('https://www.saucedemo.com/checkout-step-two.html')
-                await expect(checkoutPage2.title).toHaveText('Checkout: Overview')
+                await expect(headerComponent.title).toHaveText('Checkout: Overview')
             })
             await test.step('Verify that pre-selected product info correspond information in the overview page', async () => {
                 await expect(checkoutPage2.inventoryItemNameInfo.first()).toHaveText('Sauce Labs Bike Light')

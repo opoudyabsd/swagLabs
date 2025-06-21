@@ -5,25 +5,16 @@ export class ProductPage {
     readonly sauceLabsBackpack: Locator
     readonly sauceLabsBackpackUrl: string
     readonly addToCartButton: Locator
-    readonly shoppingCartBadge: Locator
-    readonly shoppingCartLink: Locator
     readonly sortingMenu: Locator
     readonly inventoryItemPrice: Locator
     readonly inventoryItemName: Locator
-    readonly title: Locator
     readonly inventoryItem: Locator
     readonly bikeLight: Locator
     readonly bikeLightAddToCart: Locator
-    readonly sightBarMenuButton: Locator
-    readonly sightBarMenu: Locator
-    readonly sightBarMenuLogoutButton: Locator
+    readonly sauceFleeceJacket: Locator
+    readonly sauceFleeceJacketAddToCart: Locator
     constructor(page: Page) {
         this.page = page
-        this.title = page.locator('[data-test="title"]')
-
-        this.sightBarMenuButton = page.locator("#react-burger-menu-btn")
-        this.sightBarMenu = page.locator('.bm-menu')
-        this.sightBarMenuLogoutButton = page.locator('#logout_sidebar_link')
 
         this.bikeLight = page.getByRole('link', { name: 'Sauce Labs Bike Light' }).first()
         this.bikeLightAddToCart = page.locator("#add-to-cart-sauce-labs-bike-light")
@@ -31,9 +22,10 @@ export class ProductPage {
         this.sauceLabsBackpack = page.getByRole('link', { name: 'Sauce Labs Backpack' }).first()
         this.sauceLabsBackpackUrl = 'https://www.saucedemo.com/inventory-item.html?id=4'
 
+        this.sauceFleeceJacket = page.getByRole('link', { name: 'Sauce Labs Fleece Jacket' }).first()
+        this.sauceFleeceJacketAddToCart = page.locator('#add-to-cart-sauce-labs-fleece-jacket')
+
         this.addToCartButton = page.locator('[data-test="add-to-cart"]')
-        this.shoppingCartBadge = page.locator('[data-test="shopping-cart-badge"]')
-        this.shoppingCartLink = page.locator('[data-test="shopping-cart-link"]')
 
         this.sortingMenu = page.locator('[data-test="product-sort-container"]')
 

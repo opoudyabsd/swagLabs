@@ -8,10 +8,8 @@ export class CheckoutPage {
     readonly postalCode: Locator
     readonly continueButton: Locator
     readonly errorMessageLocator: Locator
-    readonly title: Locator
     constructor(page: Page) {
         this.page = page
-        this.title = page.locator('[data-test="title"]')
         this.firstName = page.locator('#first-name')
         this.lastName = page.locator('#last-name')
         this.postalCode = page.locator('#postal-code')
