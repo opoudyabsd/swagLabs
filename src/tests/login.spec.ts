@@ -4,7 +4,7 @@ import { ProductPage } from "../pom/productsPage"
 
 test.describe('Login functionality', () => {
     test.beforeEach(async ({ page }) => {
-        await page.goto('/')
+        await page.goto('https://www.saucedemo.com/')
     })
 
     test('Verify login functionality with valid credentials', async ({ page }) => {
