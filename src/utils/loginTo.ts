@@ -1,5 +1,5 @@
 import { expect } from '@playwright/test';
-import { LoginPage } from '../pom/login/loginPage.spec';
+import { LoginPage } from '../pom/login/loginPage';
 export async function loginToLab(page: any) {
     await page.goto('https://www.saucedemo.com/')
     const loginPage = new LoginPage(page)

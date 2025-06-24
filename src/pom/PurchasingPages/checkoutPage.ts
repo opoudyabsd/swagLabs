@@ -8,7 +8,9 @@ export class CheckoutPage {
     readonly postalCode: Locator
     readonly continueButton: Locator
     readonly errorMessageLocator: Locator
+    readonly checkoutUrl: string
     constructor(page: Page) {
+        this.checkoutUrl = 'https://www.saucedemo.com/checkout-step-one.html'
         this.page = page
         this.firstName = page.locator('#first-name')
         this.lastName = page.locator('#last-name')

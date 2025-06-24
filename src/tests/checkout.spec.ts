@@ -1,11 +1,11 @@
 import { test, expect } from '@playwright/test';
 import { loginToLab } from './../utils/loginTo'
-import { CheckoutPage } from '../pom/PurchasingPages/checkoutPage.spec';
-import { CheckoutCompletePage } from "../pom/PurchasingPages/checkoutCompletePage.spec"
-import { CheckoutPage2 } from "../pom/PurchasingPages/checkoutPage2.spec"
-import { CartPage } from "../pom/PurchasingPages/cartPage.spec"
-import { ProductPage } from "../pom/productsPage.spec"
-import { HeaderComponent } from '../pom/headers/headersComponent.spec';
+import { CheckoutPage } from '../pom/PurchasingPages/checkoutPage';
+import { CheckoutCompletePage } from "../pom/PurchasingPages/checkoutCompletePage"
+import { CheckoutPage2 } from "../pom/PurchasingPages/checkoutPage2"
+import { CartPage } from "../pom/PurchasingPages/cartPage"
+import { ProductPage } from "../pom/productsPage"
+import { HeaderComponent } from '../pom/headers/headersComponent';
 test.describe("Checkout functionality", () => {
     test.beforeEach(async ({ page }) => {
         await loginToLab(page)
@@ -132,16 +132,16 @@ test.describe("Checkout functionality", () => {
     test.skip("Negative testing -> Verify the behavior of checkout functionality without adding any item to the cart", async ({ page }) => {
         const cartPage = new CartPage(page)
         const headerComponent = new HeaderComponent(page)
-
+        const productPage = new ProductPage(page)
         await test.step("Navigate user to the product page", async () => {
-            await expect(page).toHaveURL('https://www.saucedemo.com/inventory.html')
+            await expect(page).toHaveURL(productPage.productUrl)
             await expect(headerComponent.title).toHaveText("Products")
         })
         await test.step('Click on cart icon at the top of the right corner', async () => {
             await headerComponent.shoppingCartLink.click()
         })
         await test.step('Verify that user is redirected to the cart page', async () => {
-            await expect(page).toHaveURL('https://www.saucedemo.com/cart.html')
+            await expect(page).toHaveURL(cartPage.cartPageUrl)
             await expect(headerComponent.title).toHaveText("Your Cart")
         })
         await test.step('Verify that product section at the cart page is empty', async () => {
@@ -171,7 +171,7 @@ test.describe("Checkout functionality", () => {
             const headerComponent = new HeaderComponent(page)
 
             await test.step("User navigates to the products item page", async () => {
-                await expect(page).toHaveURL('https://www.saucedemo.com/inventory.html')
+                await expect(page).toHaveURL(productsPage.productUrl)
                 await expect(headerComponent.title).toHaveText("Products")
             })
             await test.step("Click on the “Add to cart” button for random product | Sauce Labs Bike Light", async () => {
@@ -197,7 +197,7 @@ test.describe("Checkout functionality", () => {
                 await cartPage.checkoutButton.click()
             })
             await test.step('Verify that user is redirected to the “Checkout: Your Information” page', async () => {
-                await expect(page).toHaveURL('https://www.saucedemo.com/checkout-step-one.html')
+                await expect(page).toHaveURL(checkoutPage.checkoutUrl)
                 await expect(headerComponent.title).toHaveText('Checkout: Your Information')
             })
             await test.step("Enter a valid first name, last name and postcode", async () => {
@@ -207,7 +207,7 @@ test.describe("Checkout functionality", () => {
                 await checkoutPage.continueButton.click()
             })
             await test.step('Verify that user is redirected to the “Checkout: Overview” page', async () => {
-                await expect(page).toHaveURL('https://www.saucedemo.com/checkout-step-two.html')
+                await expect(page).toHaveURL(checkoutPage2.checkout2Url)
                 await expect(headerComponent.title).toHaveText('Checkout: Overview')
             })
             await test.step('Verify that pre-selected product info correspond information in the overview page', async () => {

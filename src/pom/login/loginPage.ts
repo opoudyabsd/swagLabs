@@ -7,9 +7,11 @@ export class LoginPage {
     readonly productsHeader: Locator;
     readonly errorLocator: Locator;
     readonly loginSection: Locator;
+    readonly loginUrl: string
 
     constructor(page: Page) {
         this.page = page;
+        this.loginUrl = 'https://www.saucedemo.com/'
         this.usernameField = page.locator('#user-name')
         this.passwordField = page.locator('#password')
         this.loginButton = page.getByRole('button', { name: /Login/i })

@@ -1,7 +1,7 @@
 import { test, expect } from "@playwright/test"
 import { loginToLab } from './../utils/loginTo';
-import { FooterPage } from '../pom/footer/footerPage.spec';
-import { HeaderComponent } from '../pom/headers/headersComponent.spec';
+import { HeaderComponent } from '../pom/headers/headersComponent';
+import { ProductPage } from "../pom/productsPage";
 test.describe('Footer links', () => {
     test.beforeEach(async ({ page }) => {
         await loginToLab(page)
@@ -12,10 +12,10 @@ test.describe('Footer links', () => {
         { socialMedia: "Facebook", link: 'https://www.facebook.com/saucelabs', title: 'Sauce Labs | Facebook', locator: '[data-test="social-facebook"]' },
     ].forEach(({ socialMedia, link, title, locator }) => {
         test(`Verify that ${socialMedia} link in footer section redirects to the "Sauce Labs" LinkedIn page correctly`, async ({ page, context }) => {
-            const footerPage = new FooterPage(page)
             const headerComponent = new HeaderComponent(page)
+            const productPage = new ProductPage(page)
             await test.step('User on the products page', async () => {
-                await expect(page).toHaveURL('https://www.saucedemo.com/inventory.html')
+                await expect(page).toHaveURL(productPage.productUrl)
                 await expect(headerComponent.title).toHaveText('Products')
             })
             await test.step(`Click on the ${socialMedia} link image`, async () => {

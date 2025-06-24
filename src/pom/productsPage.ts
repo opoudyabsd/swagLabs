@@ -13,9 +13,10 @@ export class ProductPage {
     readonly bikeLightAddToCart: Locator
     readonly sauceFleeceJacket: Locator
     readonly sauceFleeceJacketAddToCart: Locator
+    readonly productUrl: string
     constructor(page: Page) {
         this.page = page
-
+        this.productUrl = 'https://www.saucedemo.com/inventory.html'
         this.bikeLight = page.getByRole('link', { name: 'Sauce Labs Bike Light' }).first()
         this.bikeLightAddToCart = page.locator("#add-to-cart-sauce-labs-bike-light")
 

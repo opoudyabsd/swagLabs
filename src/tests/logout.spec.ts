@@ -1,8 +1,8 @@
 import { test, expect } from '@playwright/test';
 import { loginToLab } from './../utils/loginTo'
-import { ProductPage } from "../pom/productsPage.spec"
-import { LoginPage } from '../pom/login/loginPage.spec';
-import { HeaderComponent } from '../pom/headers/headersComponent.spec';
+import { ProductPage } from "../pom/productsPage"
+import { LoginPage } from '../pom/login/loginPage';
+import { HeaderComponent } from '../pom/headers/headersComponent';
 test.describe('Logout functionality', () => {
     test.beforeEach(async ({ page }) => {
         await loginToLab(page)
@@ -12,7 +12,7 @@ test.describe('Logout functionality', () => {
         const loginPage = new LoginPage(page)
         const headerComponent = new HeaderComponent(page)
         await test.step('User is on the products page', async () => {
-            await expect(page).toHaveURL('https://www.saucedemo.com/inventory.html')
+            await expect(page).toHaveURL(productPage.productUrl)
             await expect(headerComponent.title).toHaveText("Products")
         })
         await test.step('User clicks on the sight bar menu button', async () => {
@@ -25,7 +25,7 @@ test.describe('Logout functionality', () => {
             await headerComponent.sightBarMenuLogoutButton.click()
         })
         await test.step('User should be redirected to login page', async () => {
-            await expect(page).toHaveURL('https://www.saucedemo.com/')
+            await expect(page).toHaveURL(loginPage.loginUrl)
         })
         await test.step('User should be logged out', async () => {
             await expect(loginPage.loginSection).toBeVisible()

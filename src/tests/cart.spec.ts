@@ -1,8 +1,9 @@
 import { test, expect } from '@playwright/test';
 import { loginToLab } from './../utils/loginTo'
-import { ProductPage } from "../pom/productsPage.spec"
-import { CartPage } from '../pom/PurchasingPages/cartPage.spec';
-import { HeaderComponent } from '../pom/headers/headersComponent.spec';
+import { ProductPage } from "../pom/productsPage"
+import { CartPage } from '../pom/PurchasingPages/cartPage';
+import { HeaderComponent } from '../pom/headers/headersComponent';
+import { LoginPage } from '../pom/login/loginPage';
 
 test.describe('Cart functionality', () => {
     test.beforeEach(async ({ page }) => {
@@ -14,7 +15,7 @@ test.describe('Cart functionality', () => {
         const headerComponent = new HeaderComponent(page)
         await test.step("User on the products page", async () => {
             await expect(headerComponent.title).toHaveText("Products")
-            await expect(page).toHaveURL('https://www.saucedemo.com/inventory.html')
+            await expect(page).toHaveURL(productPage.productUrl)
         })
         await test.step('Click “Add to cart” button for the product (ex: Sauce Labs Fleece Jacket)', async () => {
             await productPage.sauceFleeceJacketAddToCart.click()
@@ -26,7 +27,7 @@ test.describe('Cart functionality', () => {
             await headerComponent.shoppingCartLink.click()
         })
         await test.step("User is redirected to the cart page", async () => {
-            await expect(page).toHaveURL('https://www.saucedemo.com/cart.html')
+            await expect(page).toHaveURL(cartPage.cartPageUrl)
             await expect(headerComponent.title).toHaveText('Your Cart')
         })
         await test.step("Pre-selected product should be visible at the product item page", async () => {
@@ -50,7 +51,7 @@ test.describe('Cart functionality', () => {
         const headerComponent = new HeaderComponent(page)
         await test.step("User on the products page", async () => {
             await expect(headerComponent.title).toHaveText("Products")
-            await expect(page).toHaveURL('https://www.saucedemo.com/inventory.html')
+            await expect(page).toHaveURL(productPage.productUrl)
         })
         await test.step('Click “Add to cart” button for the product (ex: Sauce Labs Bike Light)', async () => {
             await productPage.bikeLightAddToCart.click()
@@ -62,7 +63,7 @@ test.describe('Cart functionality', () => {
             await headerComponent.shoppingCartLink.click()
         })
         await test.step("User is redirected to the cart page", async () => {
-            await expect(page).toHaveURL('https://www.saucedemo.com/cart.html')
+            await expect(page).toHaveURL(cartPage.cartPageUrl)
             await expect(headerComponent.title).toHaveText('Your Cart')
         })
         await test.step("Pre-selected product should be visible at the product item page", async () => {
@@ -74,7 +75,7 @@ test.describe('Cart functionality', () => {
             await page.waitForLoadState()
         })
         await test.step("User remains on the Cart page after reload", async () => {
-            await expect(page).toHaveURL('https://www.saucedemo.com/cart.html')
+            await expect(page).toHaveURL(cartPage.cartPageUrl)
             await expect(headerComponent.title).toHaveText('Your Cart')
         })
         await test.step('Pre-selected product is visible in the product cart page', async () => {
@@ -86,10 +87,10 @@ test.describe('Cart functionality', () => {
         const productPage = new ProductPage(page)
         const cartPage = new CartPage(page)
         const headerComponent = new HeaderComponent(page)
-
+        const loginPage = new LoginPage(page)
         await test.step("User on the products page", async () => {
             await expect(headerComponent.title).toHaveText("Products")
-            await expect(page).toHaveURL('https://www.saucedemo.com/inventory.html')
+            await expect(page).toHaveURL(productPage.productUrl)
         })
         await test.step('Click “Add to cart” button for the product (ex: Sauce Labs Bike Light)', async () => {
             await productPage.bikeLightAddToCart.click()
@@ -101,7 +102,7 @@ test.describe('Cart functionality', () => {
             await headerComponent.shoppingCartLink.click()
         })
         await test.step("User is redirected to the cart page", async () => {
-            await expect(page).toHaveURL('https://www.saucedemo.com/cart.html')
+            await expect(page).toHaveURL(cartPage.cartPageUrl)
             await expect(headerComponent.title).toHaveText('Your Cart')
         })
         await test.step("Pre-selected product should be visible at the product item page", async () => {
@@ -118,20 +119,20 @@ test.describe('Cart functionality', () => {
             await headerComponent.sightBarMenuLogoutButton.click()
         })
         await test.step('Verify that user is redirected to the login page', async () => {
-            await expect(page).toHaveURL('https://www.saucedemo.com/')
+            await expect(page).toHaveURL(loginPage.loginUrl)
         })
         await test.step('Log in again with the same valid credentials', async () => {
             await loginToLab(page)
         })
         await test.step('Verify that user is on the product page', async () => {
-            await expect(page).toHaveURL('https://www.saucedemo.com/inventory.html')
+            await expect(page).toHaveURL(productPage.productUrl)
             await expect(headerComponent.title).toHaveText("Products")
         })
         await test.step('Click on the Cart icon at the top right corner', async () => {
             await headerComponent.shoppingCartLink.click()
         })
         await test.step('Verify that user is on the cart page', async () => {
-            await expect(page).toHaveURL('https://www.saucedemo.com/cart.html')
+            await expect(page).toHaveURL(cartPage.cartPageUrl)
             await expect(headerComponent.title).toHaveText('Your Cart')
         })
         await test.step('Pre-selected product is remains at the cart page', async () => {

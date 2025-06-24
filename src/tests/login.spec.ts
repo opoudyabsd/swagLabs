@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
-import { LoginPage } from '../pom/login/loginPage.spec';
-
+import { LoginPage } from "../pom/login/loginPage";
+import { ProductPage } from "../pom/productsPage"
 
 test.describe('Login functionality', () => {
     test.beforeEach(async ({ page }) => {
@@ -9,6 +9,7 @@ test.describe('Login functionality', () => {
 
     test('Verify login functionality with valid credentials', async ({ page }) => {
         const loginPage = new LoginPage(page)
+        const productPage = new ProductPage(page)
         await test.step('Enter an already registered user name into username field', async () => {
             await loginPage.fillUsername('standard_user')
         })
@@ -19,7 +20,7 @@ test.describe('Login functionality', () => {
             await loginPage.loginButton.click()
         })
         await test.step("Verify redirection to the inventory page", async () => {
-            await expect(page).toHaveURL("https://www.saucedemo.com/inventory.html")
+            await expect(page).toHaveURL(productPage.productUrl)
             await expect(loginPage.productsHeader).toHaveText("Products")
         })
     })
