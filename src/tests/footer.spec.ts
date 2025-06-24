@@ -1,5 +1,5 @@
-import { test, expect } from '@playwright/test';
-import { loginToLab } from './../utils/loginTo'
+import { test, expect } from "@playwright/test"
+import { loginToLab } from './../utils/loginTo';
 import { FooterPage } from '../pom/footer/footerPage.spec';
 import { HeaderComponent } from '../pom/headers/headersComponent.spec';
 test.describe('Footer links', () => {
